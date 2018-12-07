@@ -34,15 +34,6 @@
         android:textSize="30sp"
         android:text="Textview2" />
 
-    <EditText
-        android:id="@+id/personal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        android:inputType="textImeMultiLine"/>
-
     <RatingBar
         android:id="@+id/rating"
         android:layout_width="wrap_content"

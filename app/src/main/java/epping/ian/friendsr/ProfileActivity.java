@@ -4,22 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.Editable;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.text.TextWatcher;
-import android.text.Editable;
-import android.widget.Toast;
+
 
 // create profile window
 public class ProfileActivity extends AppCompatActivity {
 
     Friend retrievedFriend;
-    SharedPreferences prefsM;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
 
@@ -37,44 +30,13 @@ public class ProfileActivity extends AppCompatActivity {
         photo.setImageResource(retrievedFriend.getDrawableId());
 
         // retrieving friends name
+        final String named = retrievedFriend.getName();
         TextView name = findViewById(R.id.friendname);
-        name.setText(retrievedFriend.getName());
+        name.setText(named);
 
         // retrieving friends bio
         TextView bio = findViewById(R.id.friendbio);
         bio.setText(retrievedFriend.getBio());
-
-        // retrieving and storing personal message when changed
-        final EditText personal = findViewById(R.id.personal);
-
-        // stores personal message
-        prefsM = getSharedPreferences("friend_message", MODE_PRIVATE);
-
-        // watches changes to message
-        personal.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged (CharSequence message, int start, int before, int count){
-                String storedMessage = prefsM.getString("message" + retrievedFriend.getMessage(), null);
-                if (storedMessage != "") {
-                    retrievedFriend.setMessage(storedMessage);
-                }
-                personal.setText(storedMessage);
-            }
-
-            public void onTextChanged(CharSequence message, int start, int count, int after){
-                String currentMessage = retrievedFriend.getMessage();
-                editor = prefs.edit();
-                editor.putString("message", currentMessage);
-                editor.apply();
-            }
-            public void afterTextChanged(Editable message){
-                String storedMessage = prefsM.getString("message" + retrievedFriend.getMessage(), null);
-                if (storedMessage != "") {
-                    retrievedFriend.setMessage(storedMessage);
-                }
-                personal.setText(storedMessage);
-            }
-        });
 
         // retrieving friends rating
         RatingBar ratingBar = findViewById(R.id.rating);
@@ -82,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         // stores ratings
         prefs = getSharedPreferences("friend_rating", MODE_PRIVATE);
-        float storedRating = prefs.getFloat("rating" + retrievedFriend.getName(), 0);
+        float storedRating = prefs.getFloat("rating" + named, 0);
 
         //retrieve stored rating
         if (storedRating != 0) {
