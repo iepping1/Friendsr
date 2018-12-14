@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         prefs = getSharedPreferences("friend_rating", MODE_PRIVATE);
         float storedRating = prefs.getFloat("rating" + named, 0);
 
-        //retrieve stored rating
+        //retrieving stored rating
         if (storedRating != 0) {
             ratingBar.setRating(storedRating);
         }
@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
 
-            // acquires the name of the rated friend and stores the changed rating
+            // acquires name of rated friend and stores changed rating
             editor = getSharedPreferences("friend_rating", MODE_PRIVATE).edit();
             editor.putFloat("rating" + retrievedFriend.getName(), rating);
             editor.apply();
